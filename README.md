@@ -1,10 +1,8 @@
 # 🧠 Second Brain — an Obsidian vault template
 
-![[08_Meta/Attachments/Second-brain.png]]
+![SecondBrain](/08_Meta/Attachments/Second-brain.png)
 
-A ready-to-use Obsidian vault that combines **PARA** (Projects / Areas / Resources / Archive) with a
-**Zettelkasten** note pipeline (Fleeting → Literature → Permanent) and a journaling loop
-(Daily / Weekly / Monthly / Yearly).
+A ready-to-use Obsidian vault that combines **PARA** (Projects / Areas / Resources / Archive) with a **Zettelkasten** note pipeline (Fleeting → Literature → Permanent) and a journaling loop (Daily / Weekly / Monthly / Yearly).
 
 It ships with 15 templates, 5 Dataview dashboards, 3 MOCs, 10 pre-built life Areas, and a tag
 vocabulary that's deliberately small. Everything is plain Markdown — no lock-in, no database.
