@@ -1,0 +1,45 @@
+# =============================================================================
+# Line endings & diffs
+#
+# Fixes the "LF will be replaced by CRLF" warnings. Git stores LF in the repo
+# and gives each OS what it expects in the working copy, so the vault behaves
+# the same on Windows, macOS, Linux and mobile.
+# =============================================================================
+
+# Default: let Git decide what's text, normalize it to LF in the repo.
+* text=auto
+
+# Vault content — always LF in the repo, native endings on checkout.
+*.md        text eol=lf
+*.json      text eol=lf
+*.css       text eol=lf
+*.js        text eol=lf
+
+# Attachments — never touch these.
+*.png       binary
+*.jpg       binary
+*.jpeg      binary
+*.gif       binary
+*.webp      binary
+*.svg       text eol=lf
+*.pdf       binary
+*.mp3       binary
+*.mp4       binary
+*.wav       binary
+*.zip       binary
+*.ttf       binary
+*.otf       binary
+*.woff      binary
+*.woff2     binary
+
+# Excalidraw drawings are Markdown wrappers around a big JSON blob. Keeping
+# them out of diffs stops one moved rectangle from printing 4,000 lines.
+*.excalidraw.md   -diff -merge
+
+# Vendored plugin bundles, if you ever choose to track them (the .gitignore
+# excludes them by default). Minified single-line files — no useful diff.
+.obsidian/plugins/**/main.js     -diff linguist-vendored
+.obsidian/plugins/**/styles.css  -diff linguist-vendored
+
+# Keep GitHub's language stats about your notes, not someone else's plugins.
+.obsidian/**   linguist-vendored

@@ -1,0 +1,88 @@
+# =============================================================================
+# Second Brain — .gitignore
+#
+# Rule of thumb: ignore only what is (a) specific to ONE machine, (b) rewritten
+# constantly by Obsidian, or (c) not yours to publish. Everything else — your
+# notes AND your vault config — is committed, so cloning the repo on a new
+# machine gives you an identically-configured vault.
+#
+# Deliberately NOT ignored: .obsidian/app.json, appearance.json,
+# daily-notes.json, templates.json, hotkeys.json, core-plugins.json,
+# community-plugins.json, themes/, snippets/, and every plugin's data.json.
+# Those ARE the setup. See the plugin section below for the one nuance.
+# =============================================================================
+
+# --- Machine-local UI state -------------------------------------------------
+# Which panes are open, tab order, cursor positions, sidebar widths. Rewritten
+# every few seconds and different on every device — the #1 source of pointless
+# diffs and merge conflicts when syncing with Obsidian Git.
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# --- Plugin CODE, but not plugin SETTINGS -----------------------------------
+# main.js / styles.css / manifest.json are vendored third-party bundles: several
+# MB, re-downloaded on every plugin update, and they produce enormous diffs that
+# aren't yours. Obsidian re-downloads them when you install the plugin.
+#
+# data.json is the opposite — that's YOUR config and state: QuickAdd capture
+# macros, Templater settings, and Spaced Repetition's flashcard due dates. Lose
+# that and you lose real work, so it stays tracked.
+#
+# community-plugins.json (tracked, above) is the list of what to install, and
+# on a fresh clone your data.json is already waiting when you install it.
+.obsidian/plugins/*/*
+!.obsidian/plugins/*/data.json
+
+# --- Local caches -----------------------------------------------------------
+.obsidian/cache
+.obsidian/*.cache
+
+# --- Obsidian's own trash ---------------------------------------------------
+# Created when "Deleted files → Move to Obsidian trash" is enabled. A local undo
+# buffer, not history. (07_Archive/ is your real archive — that IS tracked.)
+.trash/
+
+# --- Excalidraw -------------------------------------------------------------
+# Your drawings (.excalidraw.md) are content and stay tracked. These two are
+# not: a local scratch file and the plugin's bundled font/library cache.
+Excalidraw/*.compressed.md
+.obsidian/plugins/obsidian-excalidraw-plugin/*.local
+
+# --- OS junk ----------------------------------------------------------------
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# --- Editor / temp ----------------------------------------------------------
+*.swp
+*.swo
+*~
+*.tmp
+
+# =============================================================================
+# OPTIONAL — uncomment if they apply to you
+# =============================================================================
+
+# Plugin settings that contain secrets. Most data.json files are safe and worth
+# committing, but anything talking to an external service stores its API token
+# there. Ignore those specific ones — not the whole plugins folder. Examples:
+# .obsidian/plugins/readwise-official/data.json
+# .obsidian/plugins/obsidian-textgenerator-plugin/data.json
+# .obsidian/plugins/obsidian-git/data.json   # if you put a token in the remote URL
+
+# Spaced Repetition rewrites data.json after every review session. If that churn
+# bothers you more than losing due dates on a new machine, uncomment:
+# .obsidian/plugins/obsidian-spaced-repetition/data.json
+
+# Large binary attachments — if the vault gets heavy, or you'd rather not push
+# screenshots and PDFs. Note: notes will then have broken embeds on a fresh clone.
+# 08_Meta/Attachments/
+
+# Private folders you don't want on a remote, even a private one.
+# 01_Journal/
+# 06_People/
