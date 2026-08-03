@@ -44,6 +44,24 @@ WHERE !completed
 GROUP BY file.link
 ```
 
+## 📋 Loose tasks — daily notes, areas, inbox
+<!-- tasks that don't belong to a project. if this list grows past ~15, you're capturing more than you're doing -->
+```dataview
+TASK
+FROM "01_Journal" OR "02_Areas" OR "00_Inbox"
+WHERE !completed
+SORT file.cday DESC
+```
+
+## 💡 All ideas — every `#idea` ever captured
+<!-- write ideas as: - #idea the thing. review these monthly: promote, or delete -->
+```dataview
+LIST
+FROM #idea
+SORT file.cday DESC
+LIMIT 50
+```
+
 ## 🧭 Areas
 ```dataview
 TABLE WITHOUT ID file.link AS "Area", review-cadence AS "Review"
@@ -93,4 +111,4 @@ LIMIT 15
 
 ---
 
-**Jump to:** [[START-HERE]] · [[08_Meta/Dashboards/Review Hub|🔁 Reviews]] · [[08_Meta/Dashboards/Knowledge|🧠 Knowledge]] · [[08_Meta/Dashboards/Reading|📚 Reading]] · [[08_Meta/MOCs/Master MOC|🗺 Master MOC]]
+**Jump to:** [[START-HERE]] · [[08_Meta/FAQ|❓ FAQ]] · [[08_Meta/Dashboards/Review Hub|🔁 Reviews]] · [[08_Meta/Dashboards/Knowledge|🧠 Knowledge]] · [[08_Meta/Dashboards/Reading|📚 Reading]] · [[08_Meta/MOCs/Master MOC|🗺 Master MOC]]
