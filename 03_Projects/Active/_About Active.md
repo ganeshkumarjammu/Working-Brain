@@ -1,0 +1,1 @@
+One note per active project, template `T - Project`. Cap yourself at 3-5. A project has an outcome and a deadline; if it has neither, it belongs in an Area or in Someday. Move finished projects to `07_Archive`.
