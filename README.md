@@ -1,5 +1,7 @@
 # 🧠 Second Brain — an Obsidian vault template
 
+![[08_Meta/Attachments/Second-brain.png]]
+
 A ready-to-use Obsidian vault that combines **PARA** (Projects / Areas / Resources / Archive) with a
 **Zettelkasten** note pipeline (Fleeting → Literature → Permanent) and a journaling loop
 (Daily / Weekly / Monthly / Yearly).
