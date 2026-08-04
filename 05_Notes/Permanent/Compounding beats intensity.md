@@ -32,13 +32,32 @@ Compounding assumes the input actually accumulates. Some domains genuinely rewar
 
 ## Connections
 - Builds on:: [[ ]]
+<!--SR:!2026-08-07,4,270-->
 - Contradicts:: [[ ]]
+<!--SR:!2026-08-07,4,270-->
 - Applies to:: [[02_Areas/Mind-and-Learning/Mind and Learning]]
+<!--SR:!2026-08-07,4,270-->
 - Applies to:: [[02_Areas/Health-and-Fitness/Health and Fitness]]
+<!--SR:!2026-08-07,4,270-->
 - Applies to:: [[02_Areas/Money-and-Finance/Money and Finance]]
+<!--SR:!2026-08-07,4,270-->
+
 
 ## Source
 - [[08_Meta/MOCs/Thinking Toolkit]]
 
 ## Open questions
 - Where in my own life am I choosing intensity because it *feels* more virtuous than consistency?
+
+## Flashcards
+#flashcards
+
+What compounds — intensity or consistency — and why?::Consistency, because it doesn't depend on motivation and survives bad weeks; intensity is a one-time payment that requires it.
+<!--SR:!2026-08-07,4,270-->
+
+By what factor does 1% daily improvement compound over a year?:: Roughly 37x.
+
+What's the main failure mode of "compounding" as a strategy?
+?
+It assumes the input actually accumulates in the right direction — consistency at the wrong thing just compounds into wasted years. Direction beats consistency.
+<!--SR:!2026-08-07,4,270-->

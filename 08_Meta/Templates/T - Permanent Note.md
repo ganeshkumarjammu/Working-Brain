@@ -28,12 +28,23 @@ confidence: medium
 
 ## Connections
 - Builds on:: [[ ]]
+<!--SR:!2026-08-07,4,270-->
 - Contradicts:: [[ ]]
+<!--SR:!2026-08-07,4,270-->
 - Similar to:: [[ ]]
+<!--SR:!2026-08-07,4,270-->
 - Applies to:: [[ ]]
+<!--SR:!2026-08-07,4,270-->
 
 ## Source
 - [[ ]]
 
 ## Open questions
 - [[ ]]
+
+## Flashcards
+<!-- Delete this section if the idea doesn't need drilling. Add #review to frontmatter tags instead if you just want the whole note to resurface. -->
+#flashcards
+
+-
+

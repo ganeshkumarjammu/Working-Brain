@@ -98,4 +98,33 @@ The daily note template now starts that line for you with `- #idea ` already typ
 
 ---
 
+## How do I use the Spaced Repetition plugin?
+
+Two modes, both already configured in this vault's plugin settings:
+
+**Flashcards** — add `#flashcards` to a note, then write cards:
+- One-way: `Question::Answer`
+- Reversible (asks both directions): `Question:::Answer`
+- Multi-line: question, then a line with just `?`, then the answer (use `??` for reversible)
+- Cloze: highlight the part to hide, e.g. `==this gets hidden==`
+
+Run **"Review flashcards"** from the command palette to review due cards. `08_Meta/Templates/T - Permanent Note.md` already has a `## Flashcards` section — delete it if a given note doesn't need drilling.
+
+**Whole-note review** — add `#review` to a note's tags instead of writing cards. Use the note review pane (opens on startup) or the **"Review: Easy / Good / Hard"** commands to schedule when the whole note resurfaces. Good for Permanent notes where you want to be quizzed on the idea itself, not isolated facts.
+
+---
+
+## My daily note shows literal `<% tp.date.now(...) %>` instead of a date — why?
+
+This means Templater either isn't installed, isn't configured, or isn't being triggered for that note. Check in order:
+
+1. **Is Templater installed and enabled?** Settings → Community plugins → confirm **Templater** is in the list and toggled on.
+2. **Are its settings actually saved?** Settings → Templater → set **Template folder location** to `08_Meta/Templates`, and turn on **Trigger Templater on new file creation**. If you skip opening this settings pane, Templater silently stays on defaults (no template folder set, trigger off) even though the plugin is enabled.
+3. **How was the note created?** The core **Daily Notes** plugin (and Obsidian's built-in Templates feature) inserts template text as-is — it does not run Templater on it. Templater only processes a new file automatically if **Periodic Notes** is installed and configured to use Templater templates, or if you're creating the note via a Templater command (e.g. "Templater: Create new note from template").
+4. **Already-created note with literal `<% %>` text?** It won't fix itself. Either recreate it from the template, or run **"Templater: Replace templates in the active file"** from the command palette to process it in place.
+
+Same root cause applies to frontmatter properties showing literal `<% %>` — Templater processes the whole file, properties included.
+
+---
+
 **Related:** [[START-HERE]] · [[00_Inbox/Inbox|📥 Inbox]] · [[08_Meta/Dashboards/Home|🏠 Home]] · [[08_Meta/First 30 Days|🗓 First 30 Days]]
