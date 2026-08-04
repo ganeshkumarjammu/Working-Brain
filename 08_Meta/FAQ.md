@@ -127,4 +127,20 @@ Same root cause applies to frontmatter properties showing literal `<% %>` — Te
 
 ---
 
+## Why does each of my devices have a different theme / different plugins installed?
+
+By design. `.gitignore` excludes the entire `.obsidian/` folder, so theme, which plugins are installed and enabled, hotkeys, and general app preferences are all **per-device** — pulling on one device never overwrites another device's setup. Only your actual notes sync.
+
+The one exception: **Spaced Repetition's `data.json`** (your flashcard due dates) stays tracked, so review scheduling follows you between devices even though the plugin list itself doesn't.
+
+**Want another plugin's settings to sync too** (e.g. QuickAdd macros, Templater config)? Open `.gitignore` and follow the "Exception" block near the top of the `.obsidian/` section — add the same three-line un-ignore chain for that plugin's folder, then run:
+```
+git add -f .obsidian/plugins/<plugin-folder-name>/data.json
+git commit -m "Sync <plugin> data across devices"
+```
+
+**Want to go back to syncing theme/plugin list across devices** instead of keeping them per-device? `.gitignore` keeps the old individual ignore lines (`appearance.json`, `community-plugins.json`, `core-plugins.json`, `app.json`, `hotkeys.json`, `themes/`, etc.) as commented-out reference lines right below the explanation — delete the blanket `.obsidian/` line and uncomment whichever ones you still want ignored, and the rest will track normally.
+
+---
+
 **Related:** [[START-HERE]] · [[00_Inbox/Inbox|📥 Inbox]] · [[08_Meta/Dashboards/Home|🏠 Home]] · [[08_Meta/First 30 Days|🗓 First 30 Days]]
