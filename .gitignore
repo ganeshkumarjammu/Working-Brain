@@ -2,14 +2,17 @@
 # Second Brain — .gitignore
 #
 # Rule of thumb: ignore only what is (a) specific to ONE machine, (b) rewritten
-# constantly by Obsidian, or (c) not yours to publish. Everything else — your
-# notes AND your vault config — is committed, so cloning the repo on a new
-# machine gives you an identically-configured vault.
+# constantly by Obsidian, or (c) not yours to publish. Your notes are always
+# tracked. Vault CONFIGURATION is split in two:
+#   - "which plugins/theme/hotkeys this device uses" -> per-device, ignored,
+#     so two devices can run entirely different Obsidian setups.
+#   - "what a plugin actually stores" (flashcard due dates, QuickAdd macros,
+#     Templater settings) -> tracked, so that content still syncs whenever
+#     both devices happen to share a plugin.
 #
-# Deliberately NOT ignored: .obsidian/app.json, appearance.json,
-# daily-notes.json, templates.json, hotkeys.json, core-plugins.json,
-# community-plugins.json, themes/, snippets/, and every plugin's data.json.
-# Those ARE the setup. See the plugin section below for the one nuance.
+# Deliberately NOT ignored: .obsidian/daily-notes.json, templates.json
+# (vault structure/conventions, not per-device setup), and every plugin's
+# data.json (the plugin's actual content). See the plugin section below.
 # =============================================================================
 
 # --- Machine-local UI state -------------------------------------------------
@@ -19,6 +22,17 @@
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json
 
+# --- Per-device Obsidian setup -----------------------------------------------
+# Theme/appearance, which plugins are installed & enabled, general app
+# preferences, and hotkey bindings. Ignoring these is what lets two devices
+# run completely different plugin sets and themes off the same repo without
+# one device's install list overwriting the other's on every pull.
+.obsidian/appearance.json
+.obsidian/community-plugins.json
+.obsidian/core-plugins.json
+.obsidian/app.json
+.obsidian/hotkeys.json
+
 # --- Plugin CODE, but not plugin SETTINGS -----------------------------------
 # main.js / styles.css / manifest.json are vendored third-party bundles: several
 # MB, re-downloaded on every plugin update, and they produce enormous diffs that
@@ -26,10 +40,10 @@
 #
 # data.json is the opposite — that's YOUR config and state: QuickAdd capture
 # macros, Templater settings, and Spaced Repetition's flashcard due dates. Lose
-# that and you lose real work, so it stays tracked.
-#
-# community-plugins.json (tracked, above) is the list of what to install, and
-# on a fresh clone your data.json is already waiting when you install it.
+# that and you lose real work, so it stays tracked, even though the plugin
+# *list* itself (community-plugins.json, above) is now per-device. If a device
+# doesn't have the plugin installed, its data.json just sits there unused
+# until that device installs the plugin too.
 .obsidian/plugins/*/*
 !.obsidian/plugins/*/data.json
 
