@@ -10,6 +10,7 @@ Empty this to zero every week. Non-negotiable — an inbox that's never emptied 
 
 ## Quick capture
 <!-- Dump lines here. Process during the weekly review. -->
+<!-- If the line is an idea, prefix it with #idea so it reaches the Home dashboard. -->
 - 
 
 ---

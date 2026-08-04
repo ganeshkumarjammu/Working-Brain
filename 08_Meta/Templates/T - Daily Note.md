@@ -24,8 +24,8 @@ tags: [journal/daily]
 -
 
 ## 💡 Ideas & sparks
-<!-- anything worth a note later; promote to 05_Notes/Fleeting -->
--
+<!-- tag every idea #idea so it shows up on the Home dashboard. promote the good ones to 05_Notes/Fleeting -->
+- #idea 
 
 ## 📚 Learned today
 <!-- one concrete thing. if blank, the day taught you nothing — fix that tomorrow -->

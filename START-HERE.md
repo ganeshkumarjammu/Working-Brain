@@ -129,7 +129,10 @@ Projects live inside an Area's orbit and get archived when done. Areas are maint
 #area/skills  #area/systems  #area/creativity  #area/self  #area/home
 #status/active  #status/waiting  #status/someday  #status/done
 #priority/high
+#idea
 ```
+
+`#idea` is the one tag you use *while writing*, not while filing. Any spark, anywhere in the vault, gets `#idea` in front of it — that's what makes every idea you've ever had show up in one list on the Home dashboard.
 
 Folders say *where it lives*. Tags say *what it is* and *what it's about*. Links say *how it relates*.
 Don't invent a new tag when a link would do.
@@ -145,3 +148,4 @@ Don't invent a new tag when a link would do.
 ---
 
 → Next stop: [[08_Meta/Dashboards/Home|🏠 Home Dashboard]]
+→ Stuck on where something goes? [[08_Meta/FAQ|❓ FAQ]]

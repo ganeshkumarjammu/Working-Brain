@@ -68,8 +68,9 @@ Settings → Community plugins → turn off Restricted mode → Browse.
 - **Omnisearch** — search that actually finds things.
 - **Advanced Tables**, **Style Settings** + a theme (Minimal / Border).
 
-**Optional:** QuickAdd (global capture hotkey), Spaced Repetition (turn Permanent notes into
-flashcards), Kanban, Excalidraw, Git (auto-backup your vault).
+**Optional:** QuickAdd (global capture hotkey), 
+[Spaced Repetition](https://www.youtube.com/watch?v=DwSNZEW6jCU) (turn Permanent notes into flashcards), 
+Kanban, Excalidraw, Git (auto-backup your vault).
 
 ### 4. Configure Templater and Periodic Notes
 
