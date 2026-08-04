@@ -11,9 +11,11 @@
 # run completely different Obsidian setups off the same repo with zero risk
 # of one device's config overwriting the other's on pull/push.
 #
-# ONE EXCEPTION: .obsidian/plugins/obsidian-spaced-repetition/data.json stays
-# tracked, so flashcard due dates still follow you between devices. See the
-# "Exception" block below for how that carve-out works.
+# EXCEPTIONS: .obsidian/plugins/obsidian-spaced-repetition/data.json stays
+# tracked, so flashcard due dates still follow you between devices, and
+# .obsidian/themes/Soft Paper/ stays tracked so the customized rainbow-folder
+# theme itself is backed up on GitHub. See the "Exception" blocks below for
+# how each carve-out works.
 #
 # The individual ignore lines below are commented out on purpose — the
 # blanket ".obsidian/" line already covers every one of them, so they do
@@ -29,7 +31,7 @@
 # .obsidian/core-plugins.json
 # .obsidian/app.json
 # .obsidian/hotkeys.json
-# .obsidian/themes/
+# .obsidian/themes/            (Soft Paper/ is tracked as an exception, below)
 # .obsidian/daily-notes.json
 # .obsidian/templates.json
 # .obsidian/cache
@@ -39,10 +41,17 @@
 
 .obsidian/
 
+# --- Exceptions: un-ignore .obsidian/ itself first --------------------------
+# Un-ignoring a file inside an ignored folder requires un-ignoring EVERY
+# parent directory in its path, starting from .obsidian/ itself (the blanket
+# rule above excludes that top-level folder too, not just its contents) —
+# git won't look inside a directory it has already excluded. This one line
+# pair is shared by both exception chains below; each chain then re-excludes
+# and re-includes one level deeper.
+!.obsidian/
+.obsidian/*
+
 # --- Exception: keep Spaced Repetition data syncing across devices ---------
-# Un-ignoring a file inside an ignored folder requires un-ignoring every
-# parent directory in its path first — git won't look inside a directory it
-# has already excluded. Hence the three-step chain below instead of one line.
 !.obsidian/plugins/
 .obsidian/plugins/*
 !.obsidian/plugins/obsidian-spaced-repetition/
@@ -55,6 +64,23 @@
 #   .obsidian/plugins/<plugin-folder-name>/*
 #   !.obsidian/plugins/<plugin-folder-name>/data.json
 # Then: git add -f .obsidian/plugins/<plugin-folder-name>/data.json
+
+# --- Exception: back up the customized Soft Paper theme -------------------
+# Same un-ignore chain as above, one level shorter since .obsidian/themes/
+# only needs one intermediate directory un-ignored, not two.
+!.obsidian/themes/
+.obsidian/themes/*
+!.obsidian/themes/Soft Paper/
+.obsidian/themes/Soft Paper/*
+!.obsidian/themes/Soft Paper/theme.css
+!.obsidian/themes/Soft Paper/manifest.json
+#
+# To track another installed theme's folder too, add the same chain:
+#   !.obsidian/themes/<Theme Name>/
+#   .obsidian/themes/<Theme Name>/*
+#   !.obsidian/themes/<Theme Name>/theme.css
+#   !.obsidian/themes/<Theme Name>/manifest.json
+# Then: git add -f ".obsidian/themes/<Theme Name>/theme.css" ".obsidian/themes/<Theme Name>/manifest.json"
 
 # --- Obsidian's own trash ---------------------------------------------------
 # Created when "Deleted files → Move to Obsidian trash" is enabled. A local undo
