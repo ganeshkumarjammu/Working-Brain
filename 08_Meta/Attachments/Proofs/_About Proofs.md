@@ -1,0 +1,1 @@
+Screenshots that prove your work (badge swipe, VPN, chat timestamps, approvals). This folder is git-ignored by default because proof can contain company information. Keep the originals in company-approved systems and store here only what you are allowed to keep.
