@@ -1,0 +1,17 @@
+{
+  "name": "work-style-tools",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Checks and helpers for the Second Brain + Work Style vault. Not needed to use the vault itself.",
+  "scripts": {
+    "check": "node check-vault.cjs",
+    "check:demo": "node check-vault.cjs --demo",
+    "setup": "node setup-obsidian.cjs"
+  },
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "jsdom": "^24.1.0",
+    "js-yaml": "^4.1.0",
+    "moment": "^2.30.1"
+  }
+}
