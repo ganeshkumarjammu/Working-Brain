@@ -1,0 +1,11 @@
+{
+  "templates_folder": "08_Meta/Templates",
+  "trigger_on_file_creation_mode": "none",
+  "auto_jump_to_cursor": false,
+  "enabled_templates_hotkeys": [
+    "08_Meta/Templates/Snippets/Stamp login.md",
+    "08_Meta/Templates/Snippets/Stamp logout.md",
+    "08_Meta/Templates/Snippets/Switch activity.md",
+    "08_Meta/Templates/Snippets/Stop activity.md"
+  ]
+}

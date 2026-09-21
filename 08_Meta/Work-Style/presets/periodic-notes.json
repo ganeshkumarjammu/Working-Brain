@@ -1,0 +1,46 @@
+{
+  "showGettingStartedBanner": false,
+  "hasMigratedDailyNoteSettings": true,
+  "hasMigratedWeeklyNoteSettings": true,
+  "activeCalendarSet": "Default",
+  "calendarSets": [
+    {
+      "id": "Default",
+      "day": {
+        "enabled": true,
+        "openAtStartup": false,
+        "format": "YYYY-MM-DD",
+        "templatePath": "08_Meta/Templates/T - Daily Note",
+        "folder": "01_Journal/Daily"
+      },
+      "week": {
+        "enabled": true,
+        "openAtStartup": false,
+        "format": "GGGG-[W]WW",
+        "templatePath": "08_Meta/Templates/T - Weekly Review",
+        "folder": "01_Journal/Weekly"
+      },
+      "month": {
+        "enabled": true,
+        "openAtStartup": false,
+        "format": "YYYY-MM",
+        "templatePath": "08_Meta/Templates/T - Monthly Review",
+        "folder": "01_Journal/Monthly"
+      },
+      "quarter": {
+        "enabled": true,
+        "openAtStartup": false,
+        "format": "YYYY-[Q]Q",
+        "templatePath": "08_Meta/Templates/T - Quarterly Review",
+        "folder": "01_Journal/Quarterly"
+      },
+      "year": {
+        "enabled": true,
+        "openAtStartup": false,
+        "format": "YYYY",
+        "templatePath": "08_Meta/Templates/T - Yearly Review",
+        "folder": "01_Journal/Yearly"
+      }
+    }
+  ]
+}
