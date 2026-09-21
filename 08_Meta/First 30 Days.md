@@ -5,6 +5,8 @@ tags: [meta]
 
 # 🗓 First 30 Days — how to make this stick
 
+> Tracking your work too? Run [[08_Meta/Work-Style/First 30 Days (Work)|First 30 Days (Work)]] alongside this plan. It adds one habit per week and never more than five minutes a day.
+
 Most vaults die in week two, not because the structure was wrong but because someone tried to do all of it on day one. Do this instead.
 
 ## Week 1 — capture only

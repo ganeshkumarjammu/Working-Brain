@@ -119,3 +119,19 @@ $RECYCLE.BIN/
 # Private folders you don't want on a remote, even a private one.
 # 01_Journal/
 # 06_People/
+
+# --- Work Style ---------------------------------------------------------------
+# Tool dependencies and the pinned Dataview bundle the checker downloads.
+tools/node_modules/
+tools/.cache/
+
+# Bookkeeping file written by `node tools/demo.cjs install`. Never commit it, and
+# run `node tools/demo.cjs remove` before committing so sample data stays out of
+# your real history.
+.work-style-demo.json
+
+# Proof screenshots can contain company information. Ignored by default so they
+# never reach a remote by accident; delete this line if you want them tracked
+# (and check your employer's rules first).
+08_Meta/Attachments/Proofs/*
+!08_Meta/Attachments/Proofs/_About Proofs.md

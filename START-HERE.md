@@ -28,14 +28,14 @@ Most people fail because they capture and never distill. Don't be most people.
 
 ```
 00_Inbox/          Everything lands here first. Empty it weekly.
-01_Journal/        Daily, Weekly, Monthly, Yearly notes. Your logbook + reviews.
+01_Journal/        Daily, Weekly, Monthly, Quarterly, Yearly notes + Reports. Your logbook + reviews.
 02_Areas/          Life domains with no end date (Health, Career, Money...).
 03_Projects/       Things with a finish line and a deadline.
-04_Resources/      Reference material by topic (Books, Articles, Mental Models...).
+04_Resources/      Reference material by topic (Books, Articles, Mental Models, Runbooks...).
 05_Notes/          The actual brain: Fleeting → Literature → Permanent + Questions.
 06_People/         One note per person who matters.
 07_Archive/        Finished or dead. Never delete, just archive.
-08_Meta/           Templates, MOCs, Dashboards, Attachments.
+08_Meta/           Templates, MOCs, Dashboards, Attachments, Work-Style (guides + engine).
 ```
 
 **Projects vs Areas** — the single most useful distinction:
@@ -80,10 +80,26 @@ Projects live inside an Area's orbit and get archived when done. Areas are maint
 
 ---
 
+## Work Style loop (only if you track your work)
+
+The same daily note has a **💼 Work log** block. It adds about 5 minutes a day and turns into proof.
+
+1. Arrive: `Alt+Shift+D` opens today's note, `Alt+Shift+I` stamps your login
+2. Give each Top 3 outcome an estimate and type: `- [ ] Fix export bug [type:: bugfix] [est:: 90]`
+3. All day: `Alt+Shift+S` when you change activity (pick the category, add a few words)
+4. Tick a task off and add `[proof:: PR 482]`; log wins under 🏆
+5. Leave: `Alt+Shift+O`
+
+Weekly review gets a **Work review** section that fills itself in; [[08_Meta/Dashboards/Work Home|Work Home]] shows the
+rest and [[01_Journal/Reports/_About Reports|Reports]] turn it into something you can send. Start with the
+[[08_Meta/Work-Style/Work Style Guide|Work Style Guide]].
+
+---
+
 ## Naming conventions
 
 - Daily: `2026-08-03`
-- Weekly: `2026-W32`
+- Weekly: `2026-W32` (ISO weeks, start Monday)
 - Monthly: `2026-08`
 - Permanent notes: a **claim**, not a topic → `Compounding beats intensity.md`, not `Compounding.md`
 - Literature notes: `Book - Deep Work - Cal Newport.md`, `Article - Title - Author.md`
@@ -117,7 +133,7 @@ Projects live inside an Area's orbit and get archived when done. Areas are maint
 - Files & Links → **New note location** → `00_Inbox`
 - Templater → **Template folder** → `08_Meta/Templates`
 - Templater → enable **Trigger Templater on new file creation**
-- Periodic Notes → point Daily/Weekly/Monthly/Yearly at `01_Journal/*` with the matching templates
+- Periodic Notes → point Daily/Weekly/Monthly/Quarterly/Yearly at `01_Journal/*` with the matching templates (weekly format `GGGG-[W]WW`). Or run `node tools/setup-obsidian.cjs` to apply all of it, Dataview and hotkeys included
 
 ---
 
@@ -147,5 +163,5 @@ Don't invent a new tag when a link would do.
 
 ---
 
-→ Next stop: [[08_Meta/Dashboards/Home|🏠 Home Dashboard]]
+→ Next stop: [[08_Meta/Dashboards/Home|🏠 Home Dashboard]] · tracking work? [[08_Meta/Work-Style/Work Style Guide|💼 Work Style Guide]]
 → Stuck on where something goes? [[08_Meta/FAQ|❓ FAQ]]

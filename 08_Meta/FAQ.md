@@ -144,3 +144,26 @@ git commit -m "Sync <plugin> data across devices"
 ---
 
 **Related:** [[START-HERE]] · [[00_Inbox/Inbox|📥 Inbox]] · [[08_Meta/Dashboards/Home|🏠 Home]] · [[08_Meta/First 30 Days|🗓 First 30 Days]]
+
+---
+
+## How do I log my work day?
+
+Open today's note (`Alt+Shift+D`), stamp your login (`Alt+Shift+I`), then press `Alt+Shift+S` whenever you change activity and pick the category. Give your Top 3 outcomes an estimate, tick them off with a proof link, and stamp logout (`Alt+Shift+O`). Field names are in [[08_Meta/Work-Style/Cheat Sheet]]; the routine is in [[08_Meta/Work-Style/Work Style Guide]].
+
+## Why are my Work numbers empty or zero?
+
+Work Style only counts days that have a login or at least one time-log line. Check that the note is in `01_Journal/Daily`, named `YYYY-MM-DD`, and that the time-log lines look like `- [start:: 09:20] [cat:: meeting]` (24-hour time, two colons). If dashboards show code instead, Dataview's JavaScript queries are off: run `node tools/setup-obsidian.cjs`. To see what a full vault looks like, `node tools/demo.cjs install`.
+
+## How do I make a report for my manager, or for a review?
+
+Open a note in `01_Journal/Reports`, change its `period` property (for example `thisweek`, `last90`, or `2026-07-01..2026-09-30`), switch to Reading view and use the tab menu → **Export to PDF**. The Weekly Status Report also has a copy-and-send message. See [[01_Journal/Reports/_About Reports]].
+
+## Where do skills, decisions and learning notes go?
+
+Anywhere you like. Work Style finds them by their `type` property (`skill`, `decision`) and, for learning, by a `skill` property on a Permanent or Literature note. Skills usually live in `02_Areas/Skills-and-Craft`.
+
+## Is it safe to keep a work log in this vault?
+
+Only if you treat it as sensitive. Keep the repo private, log links to tickets and PRs rather than pasting company code or data, and check your employment agreement. Proof screenshots go in `08_Meta/Attachments/Proofs/`, which is git-ignored by default.
+
