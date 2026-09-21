@@ -38,3 +38,9 @@ tags: [type/person]
 
 ## Related
 - [[ ]]
+
+## ⏱ Time this person blocks or interrupts (auto, from the work log)
+<!-- Fills in when blocked or interruption lines in the time log name this person in their on field. Use facts, not blame. -->
+```dataviewjs
+await dv.view("08_Meta/Work-Style/views/insights", { show: ["person"], h: 3 })
+```

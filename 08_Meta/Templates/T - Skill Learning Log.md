@@ -2,6 +2,8 @@
 type: skill
 created: <% tp.date.now("YYYY-MM-DD") %>
 level: beginner
+target: competent
+next_step:
 area: Skills-and-Craft
 tags: [type/skill]
 ---
@@ -44,3 +46,7 @@ tags: [type/skill]
 ## Teach-back
 <!-- Explain the core of this skill to a smart 12-year-old. If you can't, you don't have it yet. -->
 
+## 📎 Evidence (auto: every note that links here)
+```dataviewjs
+await dv.view("08_Meta/Work-Style/views/insights", { show: ["evidence"], h: 3 })
+```

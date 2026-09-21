@@ -3,6 +3,9 @@ type: permanent
 created: <% tp.date.now("YYYY-MM-DD") %>
 area:
 source:
+skill: ""
+taught: false
+taught_on:
 tags: [type/permanent]
 confidence: medium
 ---
@@ -28,13 +31,13 @@ confidence: medium
 
 ## Connections
 - Builds on:: [[ ]]
-<!--SR:!2026-08-07,4,270-->
 - Contradicts:: [[ ]]
-<!--SR:!2026-08-07,4,270-->
 - Similar to:: [[ ]]
-<!--SR:!2026-08-07,4,270-->
 - Applies to:: [[ ]]
-<!--SR:!2026-08-07,4,270-->
+
+## 🎓 Teach-back
+<!-- Work-style: explain this to a colleague in 3 sentences, then set taught: true and taught_on in the properties. Only notes with a skill property are tracked. -->
+
 
 ## Source
 - [[ ]]

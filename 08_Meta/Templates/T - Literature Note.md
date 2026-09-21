@@ -5,6 +5,7 @@ source-type: article
 author:
 url:
 area:
+skill: ""
 status: reading
 rating:
 tags: [type/literature]

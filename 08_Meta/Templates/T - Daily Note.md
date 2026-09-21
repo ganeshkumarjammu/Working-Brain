@@ -1,15 +1,21 @@
 ---
 type: daily
-date: <% tp.date.now("YYYY-MM-DD") %>
-week: <% tp.date.now("gggg-[W]ww") %>
+date: <% moment(tp.file.title, "YYYY-MM-DD").format("YYYY-MM-DD") %>
+week: <% moment(tp.file.title, "YYYY-MM-DD").format("GGGG-[W]WW") %>
 mood:
 energy:
+focus:
+login:
+login_source:
+logout:
+work_mode:
+day_type: work
 tags: [journal/daily]
 ---
 
-# <% tp.date.now("dddd, DD MMMM YYYY") %>
+# <% moment(tp.file.title, "YYYY-MM-DD").format("dddd, DD MMMM YYYY") %>
 
-← [[<% tp.date.now("YYYY-MM-DD", -1) %>]] | [[<% tp.date.now("gggg-[W]ww") %>|Week]] | [[<% tp.date.now("YYYY-MM-DD", 1) %>]] →
+← [[<% moment(tp.file.title, "YYYY-MM-DD").subtract(1, "day").format("YYYY-MM-DD") %>]] | [[<% moment(tp.file.title, "YYYY-MM-DD").format("GGGG-[W]WW") %>|Week]] | [[<% moment(tp.file.title, "YYYY-MM-DD").add(1, "day").format("YYYY-MM-DD") %>]] →
 
 ## 🎯 Top 3 outcomes today
 - [ ]
@@ -18,6 +24,16 @@ tags: [journal/daily]
 
 ## 📋 Other tasks
 - [ ]
+
+## 💼 Work log
+<!-- Skip this whole block on days you don't work. Alt+Shift+I log in · Alt+Shift+S switch activity · Alt+Shift+E stop · Alt+Shift+O log out. Field guide: 08_Meta/Work-Style/Cheat Sheet -->
+### ⏱ Time log
+
+### 🚧 Waiting on others
+
+### 🏆 Work wins & proof
+
+### 🔁 Repeated today
 
 ## 📓 Log
 <!-- timestamped as the day happens -->
@@ -43,3 +59,8 @@ tags: [journal/daily]
 **One thing to do differently tomorrow:**
 
 **Score /10:**
+
+## 📊 Work numbers (auto)
+```dataviewjs
+await dv.view("08_Meta/Work-Style/views/insights", { range: "day", show: ["cards", "timeline", "categories", "leaks", "checks"], h: 3 })
+```

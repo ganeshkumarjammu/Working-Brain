@@ -1,16 +1,27 @@
 ---
 type: yearly
-year: <% tp.date.now("YYYY") %>
+year: <% moment(tp.file.title, "YYYY").format("YYYY") %>
 tags: [journal/yearly]
 ---
 
-# <% tp.date.now("YYYY") %>
+# <% moment(tp.file.title, "YYYY").format("YYYY") %>
 
 ## 🧭 Theme of the year
 
 
 ## 📖 The year in one page
 
+
+## 💼 Work in numbers (auto)
+```dataviewjs
+await dv.view("08_Meta/Work-Style/views/insights", { range: "year", show: ["cards", "chart", "trend"], h: 4 })
+```
+```dataviewjs
+await dv.view("08_Meta/Work-Style/views/insights", { range: "year", show: ["wins"], limit: 60, h: 4 })
+```
+```dataviewjs
+await dv.view("08_Meta/Work-Style/views/insights", { range: "year", show: ["skills", "learning", "projects"], h: 4 })
+```
 
 ## 🏆 The 10 things I'm proudest of
 1.

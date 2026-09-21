@@ -1,12 +1,14 @@
 ---
 type: weekly
-week: <% tp.date.now("gggg-[W]ww") %>
+week: <% moment(tp.file.title, "GGGG-[W]WW").format("GGGG-[W]WW") %>
+week_start: <% moment(tp.file.title, "GGGG-[W]WW").startOf("isoWeek").format("YYYY-MM-DD") %>
+week_end: <% moment(tp.file.title, "GGGG-[W]WW").endOf("isoWeek").format("YYYY-MM-DD") %>
 tags: [journal/weekly]
 ---
 
-# Week <% tp.date.now("ww, gggg") %>
+# Week <% moment(tp.file.title, "GGGG-[W]WW").format("WW, GGGG") %> · <% moment(tp.file.title, "GGGG-[W]WW").startOf("isoWeek").format("D MMM") %> – <% moment(tp.file.title, "GGGG-[W]WW").endOf("isoWeek").format("D MMM YYYY") %>
 
-← [[<% tp.date.now("gggg-[W]ww", -7) %>]] | [[<% tp.date.now("YYYY-MM") %>|Month]] | [[<% tp.date.now("gggg-[W]ww", 7) %>]] →
+← [[<% moment(tp.file.title, "GGGG-[W]WW").subtract(1, "week").format("GGGG-[W]WW") %>]] | [[<% moment(tp.file.title, "GGGG-[W]WW").startOf("isoWeek").format("YYYY-MM") %>|Month]] | [[<% moment(tp.file.title, "GGGG-[W]WW").add(1, "week").format("GGGG-[W]WW") %>]] →
 
 ## ✅ Clear the decks
 - [ ] `00_Inbox` emptied to zero
@@ -14,6 +16,7 @@ tags: [journal/weekly]
 - [ ] All Active projects have a defined next action
 - [ ] Calendar for next week reviewed
 - [ ] Desktop / downloads / phone photos cleared
+- [ ] Work log tidy: the "Log hygiene" list below is empty
 
 ## 🏆 Wins this week
 -
@@ -32,6 +35,38 @@ LIST
 FROM "05_Notes"
 WHERE file.cday >= date(today) - dur(7 days)
 SORT file.cday DESC
+```
+
+## 💼 Work review (auto)
+<!-- Numbers come from your Work log blocks in the daily notes. Nothing to fill in. -->
+### The week in numbers
+```dataviewjs
+await dv.view("08_Meta/Work-Style/views/insights", { range: "week", show: ["cards", "categories", "days"], h: 4 })
+```
+
+### Wins and proof
+```dataviewjs
+await dv.view("08_Meta/Work-Style/views/insights", { range: "week", show: ["wins"], h: 4 })
+```
+
+### Where time leaked
+```dataviewjs
+await dv.view("08_Meta/Work-Style/views/insights", { range: "week", show: ["leaks", "blockers", "meetings"], h: 4 })
+```
+
+### Estimates and delivery
+```dataviewjs
+await dv.view("08_Meta/Work-Style/views/insights", { range: "week", show: ["estimates", "ledger"], limit: 15, h: 4 })
+```
+
+### Repeated work, learning, log hygiene
+```dataviewjs
+await dv.view("08_Meta/Work-Style/views/insights", { range: "week", show: ["repeats", "learning", "checks"], h: 4 })
+```
+
+### 📨 Update for my manager
+```dataviewjs
+await dv.view("08_Meta/Work-Style/views/insights", { range: "week", show: ["manager"], h: 4 })
 ```
 
 ## 📊 Area check-in
@@ -58,4 +93,6 @@ Rate 1–5. Anything at 2 or below gets an action next week.
 - [ ]
 - [ ]
 
-**One experiment to run:**
+**One experiment to run:** <!-- pick it from the biggest leak above -->
+
+**Runbook to write or automation to build:** <!-- from the Repeated work list -->

@@ -3,7 +3,10 @@ type: decision
 date: <% tp.date.now("YYYY-MM-DD") %>
 status: decided
 area:
+project:
 reversible: yes
+review_on:
+result:
 tags: [type/decision]
 ---
 
@@ -32,7 +35,7 @@ tags: [type/decision]
 <!-- Write the prediction BEFORE the outcome. This is how you calibrate. -->
 **Prediction:**
 **Confidence:** %
-**Check back on:** 
+**Check back on:** <!-- also set review_on in the properties so the dashboards remind you -->
 
 ## Outcome (fill in later)
 **What actually happened:**

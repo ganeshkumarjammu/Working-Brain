@@ -5,6 +5,8 @@ created: <% tp.date.now("YYYY-MM-DD") %>
 deadline:
 area:
 priority: medium
+impact:
+stakeholder:
 tags: [type/project, status/active]
 ---
 
@@ -48,3 +50,9 @@ tags: [type/project, status/active]
 **What I'd do differently:**
 **Time estimated vs actual:**
 **Lesson to carry forward:** → promote to [[ ]]
+
+## ⏱ Time & proof (auto)
+<!-- Log time to this project by adding a project field with exactly this note's name to time-log lines and tasks in the daily note. See 08_Meta/Work-Style/Cheat Sheet. -->
+```dataviewjs
+await dv.view("08_Meta/Work-Style/views/insights", { show: ["project"], h: 3 })
+```
