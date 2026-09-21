@@ -1,0 +1,1 @@
+Quarterly reviews, named YYYY-Qn (e.g. 2026-Q3). Template: `T - Quarterly Review`. Two hours to re-aim: read the trend, score the Areas, decide the next quarter's goals, export the Quarterly Evidence Pack.

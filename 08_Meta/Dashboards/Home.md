@@ -17,6 +17,14 @@ cssclasses: [dashboard]
 
 ---
 
+## 💼 Work — this week
+```dataviewjs
+await dv.view("08_Meta/Work-Style/views/insights", { range: "thisweek", show: ["cards"], h: 3 })
+```
+→ [[08_Meta/Dashboards/Work Home|Work Home]] · [[01_Journal/Reports/Weekly Status Report|Weekly Status Report]] · [[08_Meta/Work-Style/Work Style Guide|Work Style Guide]]
+
+---
+
 ## 🔥 Inbox — process to zero weekly
 ```dataview
 LIST
@@ -111,4 +119,4 @@ LIMIT 15
 
 ---
 
-**Jump to:** [[START-HERE]] · [[08_Meta/FAQ|❓ FAQ]] · [[08_Meta/Dashboards/Review Hub|🔁 Reviews]] · [[08_Meta/Dashboards/Knowledge|🧠 Knowledge]] · [[08_Meta/Dashboards/Reading|📚 Reading]] · [[08_Meta/MOCs/Master MOC|🗺 Master MOC]]
+**Jump to:** [[START-HERE]] · [[08_Meta/Dashboards/Work Home|💼 Work Home]] · [[08_Meta/FAQ|❓ FAQ]] · [[08_Meta/Dashboards/Review Hub|🔁 Reviews]] · [[08_Meta/Dashboards/Knowledge|🧠 Knowledge]] · [[08_Meta/Dashboards/Reading|📚 Reading]] · [[08_Meta/MOCs/Master MOC|🗺 Master MOC]]

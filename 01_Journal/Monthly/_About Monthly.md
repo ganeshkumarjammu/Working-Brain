@@ -1,1 +1,1 @@
-Monthly reviews, named YYYY-MM. Template: `T - Monthly Review`. Audit all ten Areas, archive dead projects, reread the month's permanent notes.
+Monthly reviews, named YYYY-MM. Template: `T - Monthly Review`. Audit all ten Areas, archive dead projects, reread the month's permanent notes. The Work review section shows the month's numbers, leaks, estimation pattern, wins and skills.

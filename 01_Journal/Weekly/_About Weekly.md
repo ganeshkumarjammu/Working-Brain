@@ -1,1 +1,1 @@
-Weekly reviews, named YYYY-Www (e.g. 2026-W32). Template: `T - Weekly Review`. This is the keystone habit -- 30 minutes on Sunday. Empty the inbox, promote notes, set next week's top 3.
+Weekly reviews, named YYYY-Www in ISO weeks (e.g. 2026-W32, weeks start Monday). Template: `T - Weekly Review`. This is the keystone habit -- 30 minutes on Sunday (Friday if you send a work update). Empty the inbox, promote notes, read the Work review, set next week's top 3.

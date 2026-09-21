@@ -23,10 +23,20 @@ review-cadence: monthly
 **Skills I'll have:**
 **Proof I'll be able to point to:**
 
-## 🏆 Wins log — keep this current, you'll need it
+## 🏆 Wins log — anything that doesn't happen at your desk (manual)
 | Date | What I did | Impact (numbers if possible) |
 |---|---|---|
 |  |  |  |
+
+## 📈 Work this quarter (auto from your daily notes)
+```dataviewjs
+await dv.view("08_Meta/Work-Style/views/insights", { range: "thisquarter", show: ["cards", "chart"], h: 3 })
+```
+## 🏆 Wins log (auto) — the same list, filled in for you
+```dataviewjs
+await dv.view("08_Meta/Work-Style/views/insights", { range: "last180", show: ["wins"], limit: 12, h: 3 })
+```
+→ Everything in one place: [[08_Meta/Dashboards/Work Home|Work Home]] · export [[01_Journal/Reports/Quarterly Evidence Pack|Quarterly Evidence Pack]]
 
 ## 🎯 Goals this quarter
 - [ ] 

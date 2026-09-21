@@ -37,6 +37,11 @@ FROM #type/skill
 SORT file.mtime DESC
 ```
 
+## 🧭 Skill growth (auto: levels, targets, evidence)
+```dataviewjs
+await dv.view("08_Meta/Work-Style/views/insights", { range: "last90", show: ["skills", "learning"], h: 3 })
+```
+
 ## 🧪 Deliberate practice rules
 1. Practice at the edge of ability — comfortable practice is just repetition
 2. Get feedback fast; without feedback you rehearse your mistakes

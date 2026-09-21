@@ -19,7 +19,7 @@ The system only works if you close the loop. This page is the loop.
 
 ## 📅 Recent dailies
 ```dataview
-TABLE WITHOUT ID file.link AS "Day", mood AS "Mood", energy AS "Energy"
+TABLE WITHOUT ID file.link AS "Day", mood AS "Mood", energy AS "Energy", focus AS "Focus"
 FROM "01_Journal/Daily"
 SORT file.name DESC
 LIMIT 10
@@ -29,6 +29,14 @@ LIMIT 10
 ```dataview
 LIST
 FROM "01_Journal/Weekly"
+SORT file.name DESC
+LIMIT 8
+```
+
+## 🎯 Quarterly reviews
+```dataview
+LIST
+FROM "01_Journal/Quarterly"
 SORT file.name DESC
 LIMIT 8
 ```
@@ -43,6 +51,14 @@ LIMIT 12
 
 ---
 
+## 💼 Work health this month (auto)
+```dataviewjs
+await dv.view("08_Meta/Work-Style/views/insights", { range: "thismonth", show: ["cards"], h: 3 })
+```
+Reports: [[01_Journal/Reports/_About Reports|all reports]] · [[01_Journal/Reports/Quarterly Evidence Pack|Quarterly Evidence Pack]] · [[01_Journal/Reports/Time Waste Report|Time Waste Report]]
+
+---
+
 ## 🧾 Quarterly review checklist
 - [ ] Read the last 3 monthly reviews back to back — what pattern repeats?
 - [ ] Score all 10 Areas; pick the 2 weakest to focus on
@@ -51,6 +67,8 @@ LIMIT 12
 - [ ] Review [[08_Meta/Dashboards/Knowledge|Knowledge]] orphans and link them
 - [ ] Check decision logs whose "check back on" date has passed — was my reasoning good?
 - [ ] Update the 12-month vision in each Area note
+- [ ] Work: export the [[01_Journal/Reports/Quarterly Evidence Pack|Quarterly Evidence Pack]] and read the trend table — is deep work up and leaking down?
+- [ ] Work: every skill either has fresh evidence or a plan (see the Skills table on [[08_Meta/Dashboards/Work Home|Work Home]])
 - [ ] Ask: *what am I still pretending not to know?*
 
 ## 📉 Health-of-system check
@@ -62,5 +80,10 @@ LIMIT 12
 | Active projects | 3–5 |  |
 | Areas scored ≤2 | 0 |  |
 | Daily notes written / week | 5+ |  |
+| Work: unlogged minutes / day | under 15 |  |
+| Work: deep-work share | at or above your target (Config) |  |
+| Work: finished tasks with proof | 80%+ |  |
+| Work: estimates within ±25% | 70%+ |  |
+| Work: tasks repeated 2+ times without a runbook | 0 |  |
 
 If more than two rows are unhealthy, the problem isn't discipline — it's that the system is too heavy. Cut something.

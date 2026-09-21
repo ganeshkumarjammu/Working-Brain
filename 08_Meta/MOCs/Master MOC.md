@@ -31,6 +31,12 @@ Rule of thumb: **when a topic has 5+ notes, give it a MOC.**
 - [[08_Meta/MOCs/How to Take Smart Notes|✍️ How to take smart notes]]
 - [[08_Meta/MOCs/Thinking Toolkit|🧰 Thinking toolkit]]
 
+## Work Style
+- [[08_Meta/Work-Style/Work Style Guide|💼 Work Style Guide]] — the system on one page
+- [[08_Meta/Dashboards/Work Home|💼 Work Home]] — today, week, leaks, estimates, proof, growth
+- [[01_Journal/Reports/_About Reports|📄 Reports]] — weekly status, timesheet, evidence pack and more
+- [[08_Meta/Work-Style/Cheat Sheet|🧾 Cheat Sheet]] · [[08_Meta/Work-Style/Dataview Cookbook|🍳 Dataview Cookbook]]
+
 ## Topic MOCs
 <!-- Create as your vault grows. Examples: -->
 - [[ ]] 

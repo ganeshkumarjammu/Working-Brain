@@ -1,0 +1,1 @@
+Step-by-step guides for work you repeat, template `T - Runbook`. Name each note exactly as you write it in the repeat field of the daily note, and its usage stats fill in automatically. The second time you do a task, start the runbook; the third time, finish it or automate it.
