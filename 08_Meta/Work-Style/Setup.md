@@ -7,6 +7,8 @@ tags: [meta, work-style]
 
 `.obsidian/` is per-device in this repo, so setup happens once on each machine. It takes about five minutes.
 
+> **Without Node.js or a terminal:** use `SETUP-MANUAL.md` in the vault's top folder. It's every step by hand in Obsidian's settings, including updating devices that already use the vault.
+
 ## 1. Install the plugins
 Settings → Community plugins → Browse. Required: **Dataview**, **Templater**, **Calendar**, **Periodic Notes**. Optional: **Homepage** (opens Work Home on startup).
 
@@ -52,3 +54,23 @@ Open [[08_Meta/Dashboards/Work Home|Work Home]]. To see it full of data first, i
 | Alt+Shift hotkeys do nothing | Settings → Hotkeys, search "Templater" or "Periodic", set your own keys |
 | "Section failed" message | Read it. Usually a time typed like 9.20 instead of 09:20 |
 | Today shows lots of unlogged time | Today is counted up to the current minute. It shrinks as you log |
+
+## 6. Syncing two devices by hand (git)
+1. **Starting** on a device: `git pull`
+2. **Leaving** a device: `git add -A` → `git commit -m "notes"` → `git pull` → `git push`
+3. Once per device: `git config merge.ours.driver true`. With the rule in `.gitattributes`, a plugin settings file (`.obsidian/plugins/*/data.json`) that changed on both devices keeps this device's copy instead of stopping the pull.
+4. Never switch devices with unpushed work, and don't edit the same note on both before syncing.
+5. If a pull still stops: `git status`, open each listed note, keep the right text between `<<<<<<<` / `=======` / `>>>>>>>`, then `git add` → `git commit --no-edit` → `git push`. Or `git merge --abort` to undo the attempt.
+
+## 7. Optional: SB Autopilot plugin
+Auto-filing, a Kanban board of every task (it understands Work Style fields like `[project::]` and `[waiting_on::]`), a project hub, quick capture and carry-over of unfinished tasks.
+1. Copy the plugin folder to `.obsidian/plugins/sb-autopilot/` and enable it.
+2. Run `node tools/setup-obsidian.cjs`. It applies `presets/sb-autopilot.json`:
+   - ISO weeks;
+   - journal creation **off** (Periodic Notes and your hotkeys own the journal here);
+   - categories for task notes, runbooks, reports, decisions and skill logs;
+   - `examples` and `tools` ignored.
+3. Its **Habit Tracker page** setting points to [[08_Meta/Dashboards/Habit Tracker|Habit Tracker]].
+
+## 8. Updating a device that already uses this vault
+Ctrl+P → **Obsidian Git: Pull**, then **Reload app without saving**. Nothing else changes.

@@ -43,7 +43,7 @@ LIMIT 20
 ```
 
 ## 📚 Key resources
-- [[ ]]
+- 
 
 ## 🪞 Review prompts
 - What's the bottleneck in this area right now?

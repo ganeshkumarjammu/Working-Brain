@@ -30,7 +30,7 @@ tags: [type/skill]
 |  |  |  |
 
 ## Resources
-- [[ ]]
+- 
 
 ## Practice log
 | Date | Time | What I practiced | What was hard |
@@ -41,7 +41,7 @@ tags: [type/skill]
 - 
 
 ## Projects built with this skill
-- [[ ]]
+- 
 
 ## Teach-back
 <!-- Explain the core of this skill to a smart 12-year-old. If you can't, you don't have it yet. -->

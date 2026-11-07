@@ -164,4 +164,4 @@ Don't invent a new tag when a link would do.
 ---
 
 → Next stop: [[08_Meta/Dashboards/Home|🏠 Home Dashboard]] · tracking work? [[08_Meta/Work-Style/Work Style Guide|💼 Work Style Guide]]
-→ Stuck on where something goes? [[08_Meta/FAQ|❓ FAQ]]
+→ Stuck on where something goes? [[08_Meta/Where Things Go|🧭 Where things go]] · [[08_Meta/FAQ|❓ FAQ]] · habits in one place: [[08_Meta/Dashboards/Habit Tracker|🔁 Habit Tracker]]

@@ -1,0 +1,17 @@
+{
+  "formats": { "daily": "YYYY-MM-DD", "weekly": "GGGG-[W]WW", "monthly": "YYYY-MM", "yearly": "YYYY" },
+  "openDailyOnStartup": false,
+  "createPeriodicOnStartup": false,
+  "dailyTasksHeading": "Other tasks, Tasks",
+  "dailyLogHeading": "Log",
+  "carryOver": true,
+  "ignoreFolders": ["08_Meta", "examples", "tools"],
+  "habitTrackerPath": "08_Meta/Dashboards/Habit Tracker.md",
+  "categories": [
+    { "key": "task", "label": "Task note", "folder": "03_Projects/Tasks", "template": "08_Meta/Templates/T - Task Note.md", "group": "Action", "dated": false, "when": "One bigger piece of work with its own checklist and Work log." },
+    { "key": "runbook", "label": "Runbook", "folder": "04_Resources/Runbooks", "template": "08_Meta/Templates/T - Runbook.md", "group": "Source", "dated": false, "when": "Steps for work you repeat." },
+    { "key": "report", "label": "Report", "folder": "01_Journal/Reports", "template": "08_Meta/Templates/T - Report.md", "group": "Journal", "dated": false, "when": "Numbers for a period, to export or share." },
+    { "key": "decision", "label": "Decision", "folder": "01_Journal/Decisions", "template": "08_Meta/Templates/T - Decision Log.md", "group": "Journal", "dated": true, "when": "A choice you made and why." },
+    { "key": "skill", "label": "Skill log", "folder": "02_Areas/Skills-and-Craft", "template": "08_Meta/Templates/T - Skill Learning Log.md", "group": "Life", "dated": false, "when": "Your practice log for one skill." }
+  ]
+}

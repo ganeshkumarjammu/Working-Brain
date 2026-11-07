@@ -66,6 +66,23 @@ function allMd(dir, base = "", out = []) { for (const f of fs.readdirSync(dir)) 
     good(q + " dataview queries executed (" + qEmpty + " returned no rows, which is fine on an empty vault)");
     good(js + " dataviewjs blocks executed" + (jsBlank ? " (" + jsBlank + " draw only HTML)" : ""));
   }
+  // 6 ── task-linked time (demo): nested lines, [for:: ], task notes, TaskNotes timer
+  if (withDemo && fs.existsSync(demo)) {
+    console.log(pi++ + ". Time logged into tasks");
+    const index = rt.buildIndex([vault, demo]);
+    const view = (rel, opts) => rt.runNoteJs(vault, index, rel, "```dataviewjs\nawait dv.view(\"08_Meta/Work-Style/views/insights\", " + JSON.stringify(opts) + ")\n```").then(r => r.map(x => x.error ? "ERROR " + x.error : x.output.join("\n")).join("\n"));
+    const expect = (cond, msg) => (cond ? good(msg) : bad(msg));
+    const day = iso => view("08_Meta/Dashboards/Work Home.md", { range: "custom", from: iso, to: iso, show: ["timeline"] });
+    expect((await day("2026-09-08")).includes("↳ Fix broken PDF footer bug"), "a time line nested under a task belongs to that task");
+    expect((await day("2026-09-18")).includes("↳ Draft quarterly summary"), "[for:: task name] ties a time line to that task");
+    expect((await day("2026-09-14")).includes("↳ Speed up the nightly job"), "time logged inside a task note counts in that day's timeline");
+    expect((await day("2026-09-17")).includes("↳ Export rewrite polish"), "TaskNotes timer entries (timeEntries) count too");
+    const tn = await view("03_Projects/Tasks/Write the onboarding guide.md", { show: ["tasknote"] });
+    expect(!tn.includes("ERROR") && (tn.match(/this note/g) || []).length === 14, "a task note lists all 14 blocks logged in it");
+    const ledger = await view("08_Meta/Dashboards/Work Home.md", { range: "custom", from: "2026-09-01", to: "2026-09-30", show: ["ledger"] });
+    expect(ledger.includes("Write the onboarding guide") && ledger.includes("(from log)"), "a finished task note gets its actual time from its own log");
+  }
+
   console.log("\n" + (failures ? "✗ " + failures + " problem(s) found" : "✓ Everything passes"));
   process.exit(failures ? 1 : 0);
 })().catch(err => { console.error("Check crashed: " + err.message); process.exit(2); });

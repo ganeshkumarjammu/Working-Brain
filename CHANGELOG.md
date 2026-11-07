@@ -1,5 +1,23 @@
 # Changelog
 
+## Work Style 1.1
+
+### Added
+- **Log time into a specific task**, four ways: shared `[ticket::]`, a time line nested under the task, `[for:: task name]`, or inside the task's own note. Each task gets its actual time, start and finish.
+- **Task notes** (`T - Task Note`, `03_Projects/Tasks`, `type: task` or `#task`): own Work log with dated lines (`[date:: ]`), checklist, proof, and a *Time on this task* section. TaskNotes plugin notes and its timer (`timeEntries`) count too.
+- **Alt+Shift+S** asks "Which task?" in the daily note (checkbox task or task note), and works inside task notes. Switch and Stop close the open block wherever it is today.
+- Engine: `tasknote` section; task-note time joins each day; finished task notes join estimate accuracy; timeline shows "↳ task"; carried-over `[>]` tasks are not counted twice.
+- **Habit Tracker** page (`08_Meta/Dashboards`): all daily properties in one table.
+- **Where Things Go** guide (`08_Meta`).
+- `.gitattributes`: plugin `data.json` merges keep this device's copy; Setup section for syncing by hand.
+- Optional **SB Autopilot** preset (`presets/sb-autopilot.json`), applied by `setup-obsidian.cjs` only when the plugin is installed.
+- Checker: list nesting in the Dataview runtime (like Obsidian), new "Time logged into tasks" checks, snippet tests for task logging.
+
+### Changed
+- Demo data: every time line has start **and** end. Task notes (one with a TaskNotes timer), nested and `[for::]` logging, a carry-over and a Book note in the new format. Day totals are unchanged.
+- `T - Book Note`: to-read → reading → finished / abandoned, reading log, actions, no duplicate table.
+- `T - Meeting`: `(me)`/`(them)` replaced by plain tasks and `[waiting_on::]`. Empty `[[ ]]` links removed from templates.
+
 ## Work Style edition
 
 A work log, proof and reporting layer added on top of the Second Brain, using its existing structure and

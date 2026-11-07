@@ -44,3 +44,7 @@
 
 # Keep GitHub's language stats about your notes, not someone else's plugins.
 .obsidian/**   linguist-vendored
+
+# Plugin settings: on a conflict keep THIS device's copy instead of stopping the sync.
+# Needs once per device:  git config merge.ours.driver true
+.obsidian/plugins/*/data.json merge=ours

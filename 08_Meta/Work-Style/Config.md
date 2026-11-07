@@ -50,4 +50,4 @@ The dashboards read the properties above. Change a number here and every dashboa
 
 To add your own category (for example "code-review"), use it in the time log, then add its name to value_cats, overhead_cats or leak_cats. Unknown categories are shown as neutral.
 
-Projects, skills, decisions and learning notes are found by their type property (project, skill, decision, permanent, literature), so they can live anywhere in the vault.
+Projects, skills, decisions and learning notes are found by their type property (project, skill, decision, permanent, literature), so they can live anywhere in the vault. **Task notes** are found by `type: task` or the tag `#task` (TaskNotes plugin), anywhere. Their dated time lines and TaskNotes `timeEntries` are added to each day.

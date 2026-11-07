@@ -34,6 +34,7 @@ If you only ever do **Log → Review**, you will still know exactly where your t
 | `02_Areas/Career-and-Work` | Shows the quarter's work numbers and auto wins next to your standard and vision |
 | `02_Areas/Skills-and-Craft` | Skill table with levels, targets and evidence counts |
 | `03_Projects` | Time logged and wins per project, using the `project` field |
+| `03_Projects/Tasks` | Task notes: one bigger task with its own Work log and "Time on this task" |
 | `04_Resources/Runbooks` | Guides for work you repeat, matched to the repeat log |
 | `05_Notes/Permanent` | Add a `skill` property and a teach-back to count a note as work learning |
 | `06_People` | Blocked and interrupted time is linked to the person, with facts not blame |
@@ -47,7 +48,7 @@ Folders say where it lives. Tags say what it is. **Fields in the time log say wh
 1. Open today's note (`Alt+Shift+D`), then `Alt+Shift+I` to stamp your login time.
 2. Your **Top 3 outcomes** are your plan. Give each an estimate and a type:
    `- [ ] Fix export bug [type:: bugfix] [est:: 90] [ticket:: PRJ-12]`
-3. All day: `Alt+Shift+S` when you change activity. Pick the category, type a few words.
+3. All day: `Alt+Shift+S` when you change activity. Pick the category, then **which task** it's for (or Esc), and type a few words. Every line gets a start *and* an end. Bigger work lives in a **task note** (`T - Task Note`): press `Alt+Shift+S` inside it and the time is logged there, still counted in that day's numbers.
 4. Tick a task off and add `[proof:: PR 482]`. If it was a win, add a win line.
 5. Leave: `Alt+Shift+O`. Two-minute reflection as usual.
 

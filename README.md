@@ -48,6 +48,8 @@ Start with [`08_Meta/Work-Style/Work Style Guide`](08_Meta/Work-Style/Work%20Sty
 
 ## Quick start
 
+> **No Node.js? No terminal?** Follow [SETUP-MANUAL.md](SETUP-MANUAL.md): every step by clicking in Obsidian's settings, for new devices and for devices that already use the vault.
+
 ### 1. Get the files
 
 ```bash
@@ -167,7 +169,7 @@ never guess wrong about where something goes.
 `T - Daily Note` · `T - Weekly Review` · `T - Monthly Review` · `T - Quarterly Review` · `T - Yearly Review` ·
 `T - Project` · `T - Area` · `T - Permanent Note` · `T - Literature Note` · `T - Fleeting Note` ·
 `T - Question` · `T - Book Note` · `T - Person` · `T - Meeting` · `T - Decision Log` ·
-`T - Skill Learning Log` · `T - Runbook` · `T - Report`
+`T - Skill Learning Log` · `T - Runbook` · `T - Report` · `T - Task Note`
 
 ### Dashboards (`08_Meta/Dashboards`)
 
@@ -241,6 +243,9 @@ it lives, tags say what it is, links say how it relates.
 | Work numbers are all zero | Nothing is logged yet. Stamp a login and switch an activity, or try `node tools/demo.cjs install` |
 
 ---
+
+## Optional: SB Autopilot plugin
+Adds auto-filing, a Kanban board of every task, a project hub, quick capture and carry-over of unfinished tasks on top of this vault. It reads Work Style fields such as `[project::]` and `[waiting_on::]`. Setup: [[08_Meta/Work-Style/Setup|Setup]] → *Optional: SB Autopilot plugin* (`presets/sb-autopilot.json`). Two pages come with it either way: [[08_Meta/Where Things Go|🧭 Where things go]] and [[08_Meta/Dashboards/Habit Tracker|🔁 Habit Tracker]].
 
 ## Checking the vault (optional)
 

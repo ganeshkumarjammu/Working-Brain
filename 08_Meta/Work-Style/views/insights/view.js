@@ -17,13 +17,17 @@
 
    show:   header, cards, chart, timeline, categories, leaks, blockers, meetings, days, timesheet,
            estimates, ledger, repeats, wins, proofs, patterns, learning, skills, projects,
-           decisions, trend, tasks, waiting, checks, manager, project, runbook, evidence, person
+           decisions, trend, tasks, waiting, checks, manager, project, runbook, evidence, person,
+           tasknote (inside a task note: its own time, estimate vs actual, days worked)
 
    Extra options: h (heading level, default 3), titles:false, limit, months, weeks, days
 
    Tweak thresholds and folder names in 08_Meta/Work-Style/Config.md.
    Projects, skills, decisions and learning notes are found by their "type" property (project, skill,
-   decision, permanent, literature), so they can live in any folder. Daily notes, runbooks and people
+   decision, permanent, literature), so they can live in any folder. Task notes (type: task, or the tag
+   #task as TaskNotes uses) add their own Work log lines ([date:: ...] [start:: ...] [end:: ...]) to each day.
+   Time is tied to a task by: a shared [ticket:: ], a time line nested under the task, [for:: task name],
+   or by being logged inside the task's own note. Daily notes, runbooks and people
    are found by folder (see the F block below).
    ============================================================================ */
 
@@ -95,6 +99,9 @@ const toneColor = t => t === "good" ? "var(--color-green)" : t === "warn" ? "var
 const toneHigh = (v, target) => v >= target ? "good" : v >= target * 0.7 ? "warn" : "bad";
 const toneLow = (v, good, bad) => v <= good ? "good" : v <= bad ? "warn" : "bad";
 const cleanText = t => String(t == null ? "" : t).replace(/\[[A-Za-z_][\w-]*::[^\]]*\]/g, "").replace(/\([A-Za-z_][\w-]*::[^)]*\)/g, "").replace(/\s+/g, " ").trim();
+const lineOf = l => (l == null ? null : (l.position && l.position.start ? l.position.start.line : (isNum(l.line) ? l.line : null)));
+const isTaskNote = p => !!(p && p.file && !String(p.file.path).startsWith("08_Meta/Templates/") &&
+  (String(p.type == null ? "" : p.type).toLowerCase().trim() === "task" || A(p.file.tags).some(t => /^#task(\/|$)/i.test(String(t)))));
 const nameOf = v => { if (v == null) return ""; if (v.path) return String(v.path).split("/").pop().replace(/\.md$/, ""); return String(v).replace(/\[\[|\]\]/g, "").split("|")[0].trim(); };
 
 const toMin = v => {
@@ -194,18 +201,72 @@ function workdaysIn(r) {
 const ALL_DAILY = A(dv.pages('"' + F.daily + '"')).map(p => ({ p, d: pageDay(p) })).filter(x => x.d)
   .sort((a, b) => a.d.toMillis() - b.d.toMillis());
 
+/* ---------- task notes: one note per task with its own Work log (TaskNotes style) ---------- */
+let TNOTES = null, TNE = null;
+function taskNotes() {
+  if (!TNOTES) TNOTES = A(dv.pages()).filter(p => isTaskNote(p) && !String(p.file.path).startsWith(F.daily + "/"));
+  return TNOTES;
+}
+// A timestamp from frontmatter can arrive as text, a Dataview (luxon) date or a JS Date: always return local time.
+const toDT = v => {
+  if (v == null || v === "") return null;
+  if (typeof v.toISO === "function") return v.isValid === false ? null : v.toLocal();
+  if (typeof v.getTime === "function") { const d = DT.fromJSDate(v); return d.isValid ? d : null; }
+  const d = DT.fromISO(String(v).trim()); return d.isValid ? d.toLocal() : null;
+};
+const taskNoteName = p => (p.title != null && String(p.title).trim() ? String(p.title).trim() : p.file.name);
+const taskNoteProject = p => (p.project != null ? nameOf(p.project) : (p.projects != null ? nameOf(A(p.projects)[0]) : ""));
+// Time lines written inside task notes (they carry [date:: ]) and TaskNotes' own timer entries, grouped by day.
+function taskNoteEntries() {
+  if (TNE) return TNE; TNE = new Map();
+  const add = (iso, e) => { if (!TNE.has(iso)) TNE.set(iso, []); TNE.get(iso).push(e); };
+  for (const p of taskNotes()) {
+    const name = taskNoteName(p), key = "note:" + p.file.path, project = taskNoteProject(p);
+    const ticket = p.ticket == null ? "" : String(p.ticket).trim();
+    for (const l of A(p.file.lists)) {
+      if (l.start == null || String(l.start) === "") continue;
+      const d = dateOf(l.date); if (!d) continue;
+      add(d.toISODate(), { start: toMin(l.start), end: toMin(l.end), cat: String(l.cat == null ? "deep-work" : l.cat).toLowerCase().trim() || "deep-work",
+        text: cleanText(l.text) || name, on: l.on == null ? "" : nameOf(l.on), outcome: l.outcome == null ? "" : String(l.outcome).toLowerCase(),
+        proof: l.proof == null ? "" : String(l.proof), project: l.project != null ? nameOf(l.project) : project,
+        ticket: l.ticket != null ? String(l.ticket).trim() : ticket, task: name, taskKey: key, from: p.file.path });
+    }
+    for (const te of A(p.timeEntries)) {
+      const st = te ? toDT(te.startTime) : null; if (!st) continue;
+      const en = toDT(te.endTime);
+      add(st.toISODate(), { start: st.hour * 60 + st.minute, end: en && en.toISODate() === st.toISODate() ? en.hour * 60 + en.minute : null,
+        cat: "deep-work", text: te.description ? String(te.description) : name, on: "", outcome: "", proof: "", project, ticket, task: name, taskKey: key, from: p.file.path });
+    }
+  }
+  return TNE;
+}
+
 function analyzeDay(p, d) {
   const iso = d.toISODate();
   const isToday = iso === todayISO;
   const items = A(p.file.lists);
   const flags = [];
 
-  let ents = items.filter(l => l.start != null && String(l.start) !== "").map(l => ({
-    start: toMin(l.start), end: toMin(l.end), cat: String(l.cat == null ? "other" : l.cat).toLowerCase().trim() || "other",
-    text: cleanText(l.text), on: l.on == null ? "" : nameOf(l.on), outcome: l.outcome == null ? "" : String(l.outcome).toLowerCase(),
-    proof: l.proof == null ? "" : String(l.proof), project: l.project == null ? "" : nameOf(l.project),
-    ticket: l.ticket == null ? "" : String(l.ticket).trim()
-  })).filter(e => e.start != null).sort((a, b) => a.start - b.start);
+  // A time line nested under a task belongs to that task (inherits its ticket and project).
+  const lineMap = new Map(items.map(l => [lineOf(l), l]));
+  const taskAt = new Map(A(p.file.tasks).map(t => [lineOf(t), t]));
+  const parentTaskOf = l => { let par = l.parent, n = 0; while (par != null && n++ < 12) { if (taskAt.has(par)) return taskAt.get(par); const it = lineMap.get(par); par = it ? it.parent : null; } return null; };
+  const mkEnt = l => {
+    const pt = parentTaskOf(l); const forName = l.for == null ? "" : cleanText(nameOf(l.for));
+    return {
+      start: toMin(l.start), end: toMin(l.end), cat: String(l.cat == null ? "other" : l.cat).toLowerCase().trim() || "other",
+      text: cleanText(l.text), on: l.on == null ? "" : nameOf(l.on), outcome: l.outcome == null ? "" : String(l.outcome).toLowerCase(),
+      proof: l.proof == null ? "" : String(l.proof),
+      project: l.project != null ? nameOf(l.project) : (pt && pt.project != null ? nameOf(pt.project) : ""),
+      ticket: l.ticket != null ? String(l.ticket).trim() : (pt && pt.ticket != null ? String(pt.ticket).trim() : ""),
+      task: pt ? cleanText(pt.text) : forName,
+      taskKey: pt ? "line:" + p.file.path + ":" + lineOf(pt) : (forName ? "name:" + forName.toLowerCase() : ""),
+      from: p.file.path
+    };
+  };
+  let ents = items.filter(l => l.start != null && String(l.start) !== "").map(mkEnt)
+    .concat((taskNoteEntries().get(iso) || []).map(e => Object.assign({}, e)))
+    .filter(e => e.start != null).sort((a, b) => a.start - b.start);
 
   let login = toMin(p.login), logout = toMin(p.logout);
   const openEnd = logout != null ? logout : (isToday ? nowMin : null);
@@ -248,8 +309,9 @@ function analyzeDay(p, d) {
     completed: !!t.completed, text: cleanText(t.text), est: t.est, actual: t.actual, type: String(t.type == null ? "other" : t.type).toLowerCase(),
     cause: t.cause == null ? "" : String(t.cause), proof: t.proof == null ? "" : String(t.proof), project: t.project == null ? "" : nameOf(t.project),
     ticket: t.ticket == null ? "" : String(t.ticket).trim(),
-    waiting_on: t.waiting_on == null ? "" : nameOf(t.waiting_on), since: dateOf(t.since), iso, day: d, page: p
-  })).filter(t => t.text);
+    waiting_on: t.waiting_on == null ? "" : nameOf(t.waiting_on), since: dateOf(t.since), iso, day: d, page: p,
+    key: "line:" + p.file.path + ":" + lineOf(t), nameKey: "name:" + cleanText(t.text).toLowerCase(), moved: t.status === ">"
+  })).filter(t => t.text && !t.moved);   // [>] = carried over to a later day: counted there, not here
 
   return { iso, day: d, page: p, ents, byCat, login, logout, span, lunch, workable, logged, unaccounted, gaps, flags, items, tasks,
            hasData: ents.length > 0 || span > 0 };
@@ -294,7 +356,19 @@ function ticketInfo() {
   }
   return TI;
 }
-const effActual = t => isNum(t.actual) ? t.actual : (t.ticket && ticketInfo().has(t.ticket.toLowerCase()) ? ticketInfo().get(t.ticket.toLowerCase()).min : null);
+// Minutes logged against a task without a ticket: nested time lines, [for:: name], or lines inside its task note.
+let TK = null;
+function taskTime() {
+  if (TK) return TK; TK = new Map();
+  for (const x of ALL_DAILY) for (const e of analysed(x).ents) if (e.taskKey) TK.set(e.taskKey, (TK.get(e.taskKey) || 0) + e.min);
+  return TK;
+}
+const effActual = t => {
+  if (isNum(t.actual)) return t.actual;
+  if (t.ticket && ticketInfo().has(t.ticket.toLowerCase())) return ticketInfo().get(t.ticket.toLowerCase()).min;
+  const T = taskTime(); let m = 0; for (const k of [t.key, t.nameKey]) if (k && T.has(k)) m += T.get(k);
+  return m > 0 ? m : null;
+};
 const estRows = tasks => tasks.map(t => Object.assign({}, t, { actual: effActual(t) })).filter(t => t.completed && isNum(t.est) && t.est > 0 && isNum(t.actual) && t.actual > 0);
 function estStats(rows) {
   if (!rows.length) return null;
@@ -309,7 +383,15 @@ function periodData(r) {
   if (PCACHE.has(key)) return PCACHE.get(key);
   const days = ALL_DAILY.filter(x => { const i = x.d.toISODate(); return i >= r.sISO && i <= r.eISO; }).map(analysed);
   const agg = aggregate(days);
-  const tasks = days.flatMap(d => d.tasks);
+  const noteTasks = taskNotes().map(p => {
+    const fin = dateOf(p.completed) || dateOf(p.completedDate) || dateOf(p.completed_on);
+    return { completed: ["done", "completed", "complete"].includes(lc(p.status)), text: taskNoteName(p),
+      est: isNum(p.est) ? p.est : (isNum(p.timeEstimate) ? p.timeEstimate : undefined), actual: isNum(p.actual) ? p.actual : undefined,
+      type: lc(p.work_type) || "other", cause: p.cause == null ? "" : String(p.cause), proof: p.proof == null ? "" : String(p.proof),
+      project: taskNoteProject(p), ticket: p.ticket == null ? "" : String(p.ticket).trim(), waiting_on: "", since: null,
+      iso: fin ? fin.toISODate() : null, day: fin, page: p, key: "note:" + p.file.path, nameKey: "", fromNote: true };
+  }).filter(t => t.iso && t.iso >= r.sISO && t.iso <= r.eISO);
+  const tasks = days.flatMap(d => d.tasks).concat(noteTasks);
   const items = days.flatMap(d => d.items.map(l => ({ l, iso: d.iso, day: d.day, page: d.page })));
   const out = { r, days, agg, tasks, items, est: estStats(estRows(tasks)) };
   PCACHE.set(key, out); return out;
@@ -388,7 +470,7 @@ S.timeline = (P) => {
   seq.sort((x, y) => x.t - y.t);
   for (const x of seq) {
     if (x.kind === "e") { const e = x.e;
-      rows.push([hhmm(e.start), hhmm(e.end), mins(e.min), ic(e.cat), [e.text, e.project ? "· " + e.project : "", e.on ? "· on " + e.on : ""].filter(Boolean).join(" "), e.proof || ""]);
+      rows.push([hhmm(e.start), hhmm(e.end), mins(e.min), ic(e.cat), [e.text, e.task && e.task !== e.text ? "· ↳ " + e.task : "", e.project ? "· " + e.project : "", e.on ? "· on " + e.on : ""].filter(Boolean).join(" "), e.proof || ""]);
     } else rows.push([hhmm(x.g.s), hhmm(x.g.e), mins(x.g.e - x.g.s), "❓ unlogged", "_gap: nothing recorded_", ""]);
   }
   dv.table(["From", "To", "Length", "Category", "What", "Proof"], rows);
@@ -572,7 +654,7 @@ S.trend = (P0, PP0, R0) => {
 S.tasks = () => {
   hd("Open tasks (last " + (opts.days || 14) + " days)");
   const from = today.minus({ days: (opts.days || 14) }).toISODate();
-  const open = ALL_DAILY.filter(x => x.d.toISODate() >= from).flatMap(x => A(x.p.file.tasks)).filter(t => !t.completed && !t.waiting_on && cleanText(t.text));
+  const open = ALL_DAILY.filter(x => x.d.toISODate() >= from).flatMap(x => A(x.p.file.tasks)).filter(t => !t.completed && t.status !== ">" && !t.waiting_on && cleanText(t.text));
   if (!open.length) return say("Nothing open. Nice.");
   dv.taskList(open.slice(0, opts.limit || 20), false);
 };
@@ -591,9 +673,15 @@ S.checks = (P) => {
   for (const d of P.days) {
     d.flags.forEach(f => issues.push([dlink(d.iso), f]));
     d.tasks.filter(t => t.completed && !t.proof).forEach(t => issues.push([dlink(d.iso), "done without proof: " + t.text]));
-    d.tasks.filter(t => t.completed && isNum(t.est) && !isNum(effActual(t))).forEach(t => issues.push([dlink(d.iso), "estimate but no actual (add [actual:: min] or a ticket shared with the time log): " + t.text]));
+    d.tasks.filter(t => t.completed && isNum(t.est) && !isNum(effActual(t))).forEach(t => issues.push([dlink(d.iso), "estimate but no actual (add [actual:: min], a shared ticket, a time line nested under the task, or [for:: task name]): " + t.text]));
     d.ents.filter(e => e.cat === "meeting" && !e.outcome).forEach(e => issues.push([dlink(d.iso), "meeting without [outcome:: yes/no]: " + e.text]));
     d.ents.filter(e => e.cat === "blocked" && !e.on).forEach(e => issues.push([dlink(d.iso), "blocked but no [on:: who/what]: " + e.text]));
+  }
+  // time logged inside task notes on a day that has no daily note (it can't be counted in that day's numbers)
+  const dailyIsos = new Set(ALL_DAILY.map(x => x.d.toISODate()));
+  for (const [iso, es] of taskNoteEntries()) {
+    if (iso < P.r.sISO || iso > P.r.eISO || dailyIsos.has(iso)) continue;
+    issues.push([iso, "time logged in a task note (" + [...new Set(es.map(e => e.task))].join(", ") + ") but there is no daily note for this day: create it so the time counts"]);
   }
   if (!issues.length) return dv.paragraph("✅ Nothing to fix — the log looks clean.");
   dv.paragraph("**" + issues.length + "** things to tidy" + (issues.length > 25 ? " (showing 25)" : ""));
@@ -644,6 +732,27 @@ S.project = () => {
   if (es.length) { const byDay = new Map(); es.forEach(e => byDay.set(e.iso, (byDay.get(e.iso) || 0) + e.min));
     dv.table(["Day", "Time on project"], [...byDay.entries()].sort((a, b) => b[0].localeCompare(a[0])).slice(0, 20).map(([iso, m]) => [dlink(iso), mins(m)])); }
   else say("Tag time-log lines and tasks with [project:: " + curName + "] to see them here.");
+};
+
+// Inside a task note: everything logged against this task, wherever it was logged.
+S.tasknote = () => {
+  hd("Time on this task");
+  const page = cur; if (!page || !page.file) return say("Open this inside a task note.");
+  const name = taskNoteName(page), key = "note:" + page.file.path, ticket = page.ticket == null ? "" : String(page.ticket).trim().toLowerCase();
+  const all = periodData(mkRange(ALL_DAILY.length ? ALL_DAILY[0].d : today, today, "all"));
+  const es = all.agg.ents.filter(e => e.taskKey === key || (ticket && e.ticket.toLowerCase() === ticket) || e.taskKey === "name:" + name.toLowerCase());
+  const total = sum(es.map(e => e.min));
+  const est = isNum(page.est) ? page.est : (isNum(page.timeEstimate) ? page.timeEstimate : null);
+  const done = ["done", "completed", "complete"].includes(lc(page.status));
+  renderCards([
+    { label: "Time logged", value: mins(total), sub: new Set(es.map(e => e.iso)).size + " days" },
+    { label: "Estimate", value: est == null ? "–" : mins(est), sub: est == null ? "add est: (minutes)" : (total ? (total / est).toFixed(2) + "× of estimate" : "nothing logged yet"), tone: est && total ? toneLow(Math.abs(total - est) / est * 100, CFG.estTol, CFG.estTol * 2) : "" },
+    { label: "Status", value: String(page.status == null ? "open" : page.status), sub: done && !page.proof ? "add proof:" : (page.proof ? String(page.proof) : "") },
+    { label: "First → last", value: es.length ? DT.fromISO(es[0].iso).toFormat("d LLL") + " → " + DT.fromISO(es[es.length - 1].iso).toFormat("d LLL") : "–", sub: "" },
+  ]);
+  if (!es.length) return say("Press Alt+Shift+S in this note to log time here, or pick this task under “Which task?” in the daily note.");
+  dv.table(["Day", "When", "Type", "Length", "What", "Logged in"], es.slice().sort((a, b) => (b.iso + hhmm(b.start)).localeCompare(a.iso + hhmm(a.start))).slice(0, 40)
+    .map(e => [dlink(e.iso), hhmm(e.start) + "–" + hhmm(e.end), ic(e.cat), mins(e.min), e.text, e.from === page.file.path ? "this note" : "daily note"]));
 };
 
 S.person = () => {

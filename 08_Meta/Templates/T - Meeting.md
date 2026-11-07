@@ -25,8 +25,8 @@ tags: [type/meeting]
 |  |  |  |
 
 ## Action items
-- [ ] (me) 
-- [ ] (them) 
+<!-- Mine: "- [ ] Do X [est:: 30]". Someone else's: "- [ ] Send the deck [waiting_on:: Priya] [since:: YYYY-MM-DD]": it shows under Waiting on others. -->
+- [ ] 
 
 ## Open questions
 - 

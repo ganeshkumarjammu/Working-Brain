@@ -37,7 +37,7 @@ tags: [type/person]
 - [ ] 
 
 ## Related
-- [[ ]]
+- 
 
 ## ⏱ Time this person blocks or interrupts (auto, from the work log)
 <!-- Fills in when blocked or interruption lines in the time log name this person in their on field. Use facts, not blame. -->

@@ -30,20 +30,20 @@ confidence: medium
 
 
 ## Connections
-- Builds on:: [[ ]]
-- Contradicts:: [[ ]]
-- Similar to:: [[ ]]
-- Applies to:: [[ ]]
+- Builds on:: 
+- Contradicts:: 
+- Similar to:: 
+- Applies to:: 
 
 ## 🎓 Teach-back
 <!-- Work-style: explain this to a colleague in 3 sentences, then set taught: true and taught_on in the properties. Only notes with a skill property are tracked. -->
 
 
 ## Source
-- [[ ]]
+- 
 
 ## Open questions
-- [[ ]]
+- 
 
 ## Flashcards
 <!-- Delete this section if the idea doesn't need drilling. Add #review to frontmatter tags instead if you just want the whole note to resurface. -->

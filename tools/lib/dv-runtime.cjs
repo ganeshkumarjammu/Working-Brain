@@ -65,16 +65,22 @@ async function createRuntime(opts = {}) {
     for (const [rel, text0] of Object.entries(raw)) {
       let body = text0, fm = {}; const mm = text0.match(/^---\n([\s\S]*?)\n---\n?/);
       if (mm) { try { fm = yaml.load(mm[1]) || {}; } catch (e) { parseErrors.push(rel + ": " + e.message.split("\n")[0]); } body = text0.slice(mm[0].length); }
-      const name = path.posix.basename(rel, ".md"); const lists = []; let fence = false, heading = null; const hdrOffset = mm ? mm[0].split("\n").length - 1 : 0; const pageFields = {};
+      const name = path.posix.basename(rel, ".md"); const lists = []; const stack = []; let fence = false, heading = null; const hdrOffset = mm ? mm[0].split("\n").length - 1 : 0; const pageFields = {};
       body.split("\n").forEach((line, i) => {
         if (/^\s*(```|~~~)/.test(line)) { fence = !fence; return; } if (fence) return;
-        const h = line.match(/^#{1,6}\s+(.*?)\s*#*\s*$/); if (h) { heading = h[1]; return; }
+        const h = line.match(/^#{1,6}\s+(.*?)\s*#*\s*$/); if (h) { heading = h[1]; stack.length = 0; return; }
+        if (line.trim() === "") stack.length = 0;
         const li = line.match(/^(\s*)[-*]\s+(?:\[(.)\]\s+)?(.*)$/);
         if (li) {
           const sec = heading ? Link.header(rel, heading) : Link.file(rel);
           const it = { symbol: "-", link: Link.file(rel), section: sec, text: li[3], tags: [], line: i + hdrOffset, lineCount: 1, list: i + hdrOffset, path: rel, children: [], task: li[2] !== undefined, annotated: false, parent: undefined, blockId: undefined,
             status: li[2] !== undefined ? li[2] : undefined, checked: li[2] !== undefined && li[2] !== " ", completed: li[2] !== undefined && li[2].toLowerCase() === "x", fullyCompleted: li[2] !== undefined && li[2].toLowerCase() === "x", real: true, visual: li[3],
-            position: { start: { line: i, col: 0, offset: 0 }, end: { line: i, col: line.length, offset: 0 } } };
+            position: { start: { line: i + hdrOffset, col: 0, offset: 0 }, end: { line: i + hdrOffset, col: line.length, offset: 0 } } };
+          // nesting like Obsidian: parent = nearest earlier item with less indentation (tab = 4 spaces)
+          const ind = li[1].replace(/\t/g, "    ").length;
+          while (stack.length && stack[stack.length - 1].ind >= ind) stack.pop();
+          if (stack.length) { const par = stack[stack.length - 1].it; it.parent = par.line; par.children.push(it); }
+          stack.push({ ind, it });
           for (const f of li[3].matchAll(/\[([A-Za-z_][\w-]*)::\s*([^\]]*)\]/g)) { const v = D.parseInlineValue(f[2]); it[f[1]] = v; const canon = f[1].toLowerCase().replace(/\s+/g, "-"); if (!(canon in it)) it[canon] = v; }
           lists.push(it);
         } else {

@@ -18,6 +18,8 @@ function merge(target, src) {
   for (const [k, v] of Object.entries(src)) {
     if (k === "calendarSets" && Array.isArray(v) && Array.isArray(target[k])) {   // Periodic Notes: merge by set id
       for (const set of v) { const t = target[k].find(x => x.id === set.id) || target[k][0]; if (t) merge(t, set); else target[k].push(set); }
+    } else if (k === "categories" && Array.isArray(v) && Array.isArray(target[k])) {   // SB Autopilot: merge categories by key
+      for (const c of v) { const t = target[k].find(x => x.key === c.key); if (t) merge(t, c); else target[k].push(c); }
     } else if (Array.isArray(v) && Array.isArray(target[k])) target[k] = [...new Set([...target[k], ...v])];   // union, e.g. Templater hotkey list
     else if (isObj(v) && isObj(target[k])) merge(target[k], v);
     else target[k] = v;
@@ -31,9 +33,12 @@ const jobs = [
   ["templater-obsidian.json", ".obsidian/plugins/templater-obsidian/data.json"],
   ["periodic-notes.json", ".obsidian/plugins/periodic-notes/data.json"],
   ["calendar.json", ".obsidian/plugins/calendar/data.json"],
+  // optional: only when the SB Autopilot plugin is installed on this device
+  ["sb-autopilot.json", ".obsidian/plugins/sb-autopilot/data.json", ".obsidian/plugins/sb-autopilot/main.js"],
 ];
 let changed = 0;
-for (const [preset, target] of jobs) {
+for (const [preset, target, needs] of jobs) {
+  if (needs && !fs.existsSync(path.join(vault, needs))) { console.log("  skipped   " + target + " (plugin not installed)"); continue; }
   const dest = path.join(vault, target); const src = readJson(path.join(presets, preset));
   const existing = readJson(dest) || {}; const next = merge(JSON.parse(JSON.stringify(existing)), src);
   const same = JSON.stringify(existing) === JSON.stringify(next);

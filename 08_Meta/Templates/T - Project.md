@@ -38,7 +38,7 @@ tags: [type/project, status/active]
 |  |  |  |
 
 ## 📚 Resources
-- [[ ]]
+- 
 
 ## 📓 Progress log
 ### <% tp.date.now("YYYY-MM-DD") %>
@@ -49,7 +49,7 @@ tags: [type/project, status/active]
 **What went well:**
 **What I'd do differently:**
 **Time estimated vs actual:**
-**Lesson to carry forward:** → promote to [[ ]]
+**Lesson to carry forward:** → promote to 
 
 ## ⏱ Time & proof (auto)
 <!-- Log time to this project by adding a project field with exactly this note's name to time-log lines and tasks in the daily note. See 08_Meta/Work-Style/Cheat Sheet. -->
