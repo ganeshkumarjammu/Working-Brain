@@ -12,7 +12,6 @@ Done. Your settings, hotkeys and notes stay as they are.
 1. **Open the vault:** Obsidian → *Open folder as vault* → turn on community plugins.
 2. **Install 4 plugins** (Settings → Community plugins → Browse): **Dataview**, **Templater**, **Periodic Notes**, **Calendar**.
 3. **Dataview** → *Enable JavaScript Queries*: **On**
-4. **Templater:**
    - Template folder: `08_Meta/Templates`
    - *Trigger on new file creation*: **On**
    - Template Hotkeys → add the 4 files in `08_Meta/Templates/Snippets`
@@ -44,8 +43,8 @@ On a phone: do steps 1 to 5, then put the 4 snippets on the toolbar (Settings �
 
 ---
 
-<details>
-<summary>Something not working?</summary>
+
+Something not working?
 
 | Problem | Fix |
 |---|---|
